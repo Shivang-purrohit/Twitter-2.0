@@ -1,10 +1,10 @@
 {
   "root": true,
   "project": {
-    "name": "seagreen-squirrel"
+    "name": "twitter-clone"
   },
   "api": {
-    "projectId": "0geyz5q5",
+    "projectId": "zf1ze8d4",
     "dataset": "production"
   },
   "plugins": [
@@ -24,10 +24,6 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"
-    },
-    {
-      "implements": "part:@sanity/base/root",
-      "path": "plugins/sanity-plugin-tutorial/CustomDefaultLayout"
     }
   ]
 }
