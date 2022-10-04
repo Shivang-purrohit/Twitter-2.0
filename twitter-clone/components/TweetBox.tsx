@@ -1,6 +1,6 @@
-import { CalculatorIcon, CalendarIcon, EmojiHappyIcon, LocationMarkerIcon, PhotographIcon, SearchCircleIcon } from '@heroicons/react/outline'
+import { CalendarIcon, EmojiHappyIcon, LocationMarkerIcon, PhotographIcon, SearchCircleIcon } from '@heroicons/react/outline'
 import { useSession } from 'next-auth/react'
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react'
+import React, { Dispatch, MouseEvent, SetStateAction, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { TweetBody, Tweet } from '../typings'
 import { fetchTweets } from '../utils/fetchTweets'
@@ -19,7 +19,7 @@ function TweetBox({ setTweets }: Props) {
  const { data: session }= useSession()
 const [imgUrlBox, setImgUrlBox] = useState<boolean>(false)
 
-const addImageToTweet =(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+const addImageToTweet =(e: MouseEvent<HTMLButtonElement,  globalThis.MouseEvent>) => {
 e.preventDefault()
 
 if(!imageInputRef.current?.value) return
@@ -35,13 +35,13 @@ const postTweet = async () => {
     profileImg: session?.user?.image || 'https://links.papareact.com/gll',
     image: image,
   }
-  const result = await fetch(`/api/addTweet`, {
+  const result = await fetch(`/api/auth/addTweet`, {
     body: JSON.stringify(tweetInfo),
     method: 'POST',
   })
-  const json = await result.json();
+  const json = await result.json()
 
-  const newTweets = await fetchTweets();
+  const newTweets = await fetchTweets()
   setTweets(newTweets)
 
   toast('Tweet Posted',{
@@ -50,10 +50,10 @@ const postTweet = async () => {
 return json
 }
 
-const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+const handleSubmit = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
   e.preventDefault()
 
-  postTweet();
+  postTweet()
 
   setInput('')
   setImage('')
@@ -63,7 +63,7 @@ const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEve
 
   return (
     <div>
-        <img className='h-14 w-14 object-cover rounded-full mt-4' src={session?.user?.image || 'https://links.papareact.com/gll'} alt='' />
+        <img className='ml-1 h-14 w-14 object-cover rounded-full mt-5' src={session?.user?.image || 'https://links.papareact.com/gll'} alt='' />
 <div className='flex flex-1 items-center pl-2'>
     <form className='flex flex-1 flex-col'>
         <input
@@ -80,7 +80,7 @@ const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEve
                 <LocationMarkerIcon className='h-5 w-5 cursor-pointer transition-transform duration-150 ease-out hover:scale-150'/>
             </div>
              
-             <button onClick={handleSubmit}  disabled={!input || !session} className='rounded-full bg-twitter px-5 py-2 font-bold text-white disabled:opacity-40'>Tweet</button>
+             <button onClick={handleSubmit}  disabled={!input || !session} className=' rounded-full bg-twitter px-5 py-2 font-bold text-white disabled:opacity-40 mr-1 mb-1'>Tweet</button>
 
         </div>
 
