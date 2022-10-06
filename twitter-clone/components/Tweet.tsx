@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, MouseEventHandler, useEffect, useState } from 'react'
 import { Comment, CommentBody, Tweet } from '../typings'
 import TimeAgo from 'react-timeago'
 import {
@@ -30,7 +30,7 @@ useEffect(() => {
     refreshComments();
 },[])
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
 e.preventDefault()
 
 const commentToast = toast.loading('Posting Comment...')
@@ -96,9 +96,9 @@ const comment: CommentBody = {
 </div>
 {/*comment box logic */}
 {commentBox && (
-    <form   className='mt-3 flex space-x-3'>
+    <form   onSubmit={handleSubmit}  className='mt-3 flex space-x-3'>
         <input  value={input} onChange={(e) => setInput(e.target.value)} className='flex-1 rounded-lg bg-gray-100 p-2 outline-none' type='text' placeholder='Write a comment...' />
-        <button disabled={!input} type='submit' onClick={handleSubmit} className='text-twitter disabled:text-gray-200'>Post</button>
+        <button disabled={!input} type='submit' className='text-twitter disabled:text-gray-200'>Post</button>
     </form>
 )}
 
