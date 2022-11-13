@@ -1,4 +1,4 @@
-import { CLIENT_STATIC_FILES_RUNTIME_REACT_REFRESH } from "next/dist/shared/lib/constants"
+
 import { Tweet } from "../typings";
 
 export const fetchTweets = async () => {
